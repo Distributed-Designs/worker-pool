@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -11,18 +12,26 @@ import (
 
 func main() {
 	cfg := config.Default()
+
+	ctx := context.Background()
+
 	p := pool.New(cfg)
-	p.Start()
-	for i := 1; i < 10; i++ {
+
+	p.Start(ctx)
+
+	for i := 1; i <= 10; i++ {
 		id := i
+
 		p.Submit(job.Job{
 			ID: id,
-			Task: func() (any, error) {
+			Task: func(ctx context.Context) (any, error) {
 				time.Sleep(500 * time.Millisecond)
-				return fmt.Sprintf("Job %d", id), nil
+
+				return fmt.Sprintf("job %d completed", id), nil
 			},
 		})
 	}
+
 	p.Stop()
 
 	for r := range p.Results() {
@@ -30,6 +39,7 @@ func main() {
 			fmt.Printf("Job %d failed: %v\n", r.JobId, r.Err)
 			continue
 		}
+
 		fmt.Printf("Job %d: %v\n", r.JobId, r.Value)
 	}
 }

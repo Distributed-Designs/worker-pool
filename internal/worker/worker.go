@@ -1,21 +1,28 @@
 package worker
 
 import (
+	"context"
 	"sync"
 
 	"github.com/Distributed-Designs/worker-pool/internal/job"
 	"github.com/Distributed-Designs/worker-pool/internal/result"
 )
 
+// Worker represents a single worker in the worker pool.
 type Worker struct {
-	ID int
-	//<- and -> are to specify to only recieve or only send (directional channels)
+	ID      int
 	Jobs    <-chan job.Job
 	Results chan<- result.Result
 	WG      *sync.WaitGroup
 }
 
-func New(id int, jobs <-chan job.Job, results chan<- result.Result, wg *sync.WaitGroup) *Worker {
+// New creates a new worker.
+func New(
+	id int,
+	jobs <-chan job.Job,
+	results chan<- result.Result,
+	wg *sync.WaitGroup,
+) *Worker {
 	return &Worker{
 		ID:      id,
 		Jobs:    jobs,
@@ -23,15 +30,28 @@ func New(id int, jobs <-chan job.Job, results chan<- result.Result, wg *sync.Wai
 		WG:      wg,
 	}
 }
-func (w *Worker) Run() {
+
+// Run starts the worker.
+func (w *Worker) Run(ctx context.Context) {
 	defer w.WG.Done()
 
-	for j := range w.Jobs {
-		value, err := j.Task()
-		w.Results <- result.Result{
-			JobId: j.ID,
-			Value: value,
-			Err:   err,
+	for {
+		select {
+		case <-ctx.Done():
+			return
+
+		case j, ok := <-w.Jobs:
+			if !ok {
+				return
+			}
+
+			value, err := j.Task(ctx)
+
+			w.Results <- result.Result{
+				JobId: j.ID,
+				Value: value,
+				Err:   err,
+			}
 		}
 	}
 }

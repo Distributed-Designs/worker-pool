@@ -1,6 +1,7 @@
 package pool
 
 import (
+	"context"
 	"sync"
 
 	"github.com/Distributed-Designs/worker-pool/internal/config"
@@ -28,7 +29,7 @@ func New(cfg config.Config) *Pool {
 }
 
 // Start starts all workers.
-func (p *Pool) Start() {
+func (p *Pool) Start(ctx context.Context) {
 	for i := 1; i <= p.workerCount; i++ {
 		p.wg.Add(1)
 
@@ -39,7 +40,7 @@ func (p *Pool) Start() {
 			&p.wg,
 		)
 
-		go w.Run()
+		go w.Run(ctx)
 	}
 
 	go func() {
@@ -58,8 +59,8 @@ func (p *Pool) Results() <-chan result.Result {
 	return p.results
 }
 
-// Stop stops accepting new jobs and allows workers to finish
-// processing jobs already in the queue.
+// Stop stops accepting new jobs and allows workers
+// to finish jobs already in the queue.
 func (p *Pool) Stop() {
 	close(p.jobs)
 }
