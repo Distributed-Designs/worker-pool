@@ -1,0 +1,36 @@
+goos: linux
+goarch: amd64
+pkg: github.com/Distributed-Designs/worker-pool/benchmarks
+cpu: AMD Ryzen 7 5800HS with Radeon Graphics        
+BenchmarkWorkerPool/1Worker-16        	    8108	    140657 ns/op	    7049 B/op	     108 allocs/op
+BenchmarkWorkerPool/1Worker-16        	    7873	    146419 ns/op	    7045 B/op	     108 allocs/op
+BenchmarkWorkerPool/1Worker-16        	    8427	    161589 ns/op	    7042 B/op	     108 allocs/op
+BenchmarkWorkerPool/2Workers-16       	    9820	    138661 ns/op	    7110 B/op	     110 allocs/op
+BenchmarkWorkerPool/2Workers-16       	   10000	    142628 ns/op	    7107 B/op	     110 allocs/op
+BenchmarkWorkerPool/2Workers-16       	   10000	    137237 ns/op	    7104 B/op	     110 allocs/op
+BenchmarkWorkerPool/4Workers-16       	   10000	    115425 ns/op	    7238 B/op	     114 allocs/op
+BenchmarkWorkerPool/4Workers-16       	   10000	    121266 ns/op	    7233 B/op	     114 allocs/op
+BenchmarkWorkerPool/4Workers-16       	   10000	    123143 ns/op	    7232 B/op	     114 allocs/op
+BenchmarkWorkerPool/8Workers-16       	   10000	    127579 ns/op	    7497 B/op	     122 allocs/op
+BenchmarkWorkerPool/8Workers-16       	    9920	    120437 ns/op	    7490 B/op	     122 allocs/op
+BenchmarkWorkerPool/8Workers-16       	   10000	    127658 ns/op	    7491 B/op	     122 allocs/op
+BenchmarkWorkerPool/16Workers-16      	   10000	    134269 ns/op	    8012 B/op	     138 allocs/op
+BenchmarkWorkerPool/16Workers-16      	   10000	    131619 ns/op	    8007 B/op	     138 allocs/op
+BenchmarkWorkerPool/16Workers-16      	   10000	    136086 ns/op	    8004 B/op	     138 allocs/op
+BenchmarkWorkerPoolCPUIntensive/1Worker-16         	      15	  74770017 ns/op	    7040 B/op	     108 allocs/op
+BenchmarkWorkerPoolCPUIntensive/1Worker-16         	      15	  72470983 ns/op	    7040 B/op	     108 allocs/op
+BenchmarkWorkerPoolCPUIntensive/1Worker-16         	      32	  33037244 ns/op	    7040 B/op	     108 allocs/op
+BenchmarkWorkerPoolCPUIntensive/2Workers-16        	      68	  16669008 ns/op	    7104 B/op	     110 allocs/op
+BenchmarkWorkerPoolCPUIntensive/2Workers-16        	      74	  16771367 ns/op	    7104 B/op	     110 allocs/op
+BenchmarkWorkerPoolCPUIntensive/2Workers-16        	      69	  17061156 ns/op	    7104 B/op	     110 allocs/op
+BenchmarkWorkerPoolCPUIntensive/4Workers-16        	     134	  10046367 ns/op	    7232 B/op	     114 allocs/op
+BenchmarkWorkerPoolCPUIntensive/4Workers-16        	     135	   8583648 ns/op	    7232 B/op	     114 allocs/op
+BenchmarkWorkerPoolCPUIntensive/4Workers-16        	     133	   8617289 ns/op	    7232 B/op	     114 allocs/op
+BenchmarkWorkerPoolCPUIntensive/8Workers-16        	     225	   5207008 ns/op	    7488 B/op	     122 allocs/op
+BenchmarkWorkerPoolCPUIntensive/8Workers-16        	     229	   5259877 ns/op	    7488 B/op	     122 allocs/op
+BenchmarkWorkerPoolCPUIntensive/8Workers-16        	     231	   5159392 ns/op	    7488 B/op	     122 allocs/op
+BenchmarkWorkerPoolCPUIntensive/16Workers-16       	     225	   5402264 ns/op	    8009 B/op	     138 allocs/op
+BenchmarkWorkerPoolCPUIntensive/16Workers-16       	     228	   5243692 ns/op	    8004 B/op	     138 allocs/op
+BenchmarkWorkerPoolCPUIntensive/16Workers-16       	     220	   5787462 ns/op	    8006 B/op	     138 allocs/op
+PASS
+ok  	github.com/Distributed-Designs/worker-pool/benchmarks	44.916s
